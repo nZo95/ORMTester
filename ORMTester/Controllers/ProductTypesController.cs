@@ -7,13 +7,13 @@ using ORMTester.Models;
 
 namespace ORMTester.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductTypesController : Controller
     {
-        private readonly ILogger<ProductsController> _logger;
+        private readonly ILogger<ProductTypesController> _logger;
 
         private readonly AppDbContext _context;
 
-        public ProductsController(ILogger<ProductsController> logger, AppDbContext context)
+        public ProductTypesController(ILogger<ProductTypesController> logger, AppDbContext context)
         {
             _logger = logger;
             _context = context;
@@ -22,7 +22,7 @@ namespace ORMTester.Controllers
         // GET: ProductsController
         public ActionResult Index()
         {
-            return View(_context.Products.Include(p => p.ProductType).Include(p => p.Shop).ToList());
+            return View(_context.ProductTypes.ToList());
         }
 
         // GET: ProductsController/Details/5
@@ -34,22 +34,19 @@ namespace ORMTester.Controllers
         // GET: ProductsController/Create
         public ActionResult Create()
         {
-            ViewBag.ProductTypes = new SelectList(_context.ProductTypes, "Id", "Name");
-            ViewBag.Shops = new SelectList(_context.Shops, "Id", "Name");
-
             return View();
         }
 
         // POST: ProductsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Product newProduct)
+        public ActionResult Create(ProductType newProductType)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    _context.Products.Add(newProduct);
+                    _context.ProductTypes.Add(newProductType);
                     _context.SaveChanges();
                 }
 
@@ -57,10 +54,7 @@ namespace ORMTester.Controllers
             }
             catch
             {
-                ViewBag.ProductTypes = new SelectList(_context.ProductTypes, "Id", "Name", newProduct.ProductTypeId);
-                ViewBag.Shops = new SelectList(_context.Shops, "Id", "Name", newProduct.ShopId);
-
-                return View(newProduct);
+                return View(newProductType);
             }
         }
 
@@ -69,20 +63,14 @@ namespace ORMTester.Controllers
         {
             try
             {
-                Product? existingProduct = _context.Products
-                    .Include(p => p.ProductType)
-                    .Include(p => p.Shop)
-                    .FirstOrDefault(p => p.Id == id);
+                ProductType? existingProductType = _context.ProductTypes.FirstOrDefault(p => p.Id == id);
 
-                if (existingProduct == null)
+                if (existingProductType == null)
                 {
                     return RedirectToAction(nameof(Index));
                 }
 
-                ViewBag.ProductTypes = new SelectList(_context.ProductTypes, "Id", "Name", existingProduct.ProductTypeId);
-                ViewBag.Shops = new SelectList(_context.Shops, "Id", "Name", existingProduct.ShopId);
-
-                return View(existingProduct);
+                return View(existingProductType);
             }
             catch
             {
@@ -93,17 +81,15 @@ namespace ORMTester.Controllers
         // POST: ProductsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Product updatedProduct)
+        public ActionResult Edit(int id, ProductType updatedProductType)
         {
             try
             {
-                Product? existingProduct = _context.Products.FirstOrDefault(p => p.Id == id);
+                ProductType? existingProductType = _context.ProductTypes.FirstOrDefault(p => p.Id == id);
 
-                if (existingProduct != null && ModelState.IsValid)
+                if (existingProductType != null && ModelState.IsValid)
                 {
-                    existingProduct.Name = updatedProduct.Name;
-                    existingProduct.ProductTypeId = updatedProduct.ProductTypeId;
-                    existingProduct.ShopId = updatedProduct.ShopId;
+                    existingProductType.Name = updatedProductType.Name;
 
                     _context.SaveChanges();
                 }
@@ -112,9 +98,6 @@ namespace ORMTester.Controllers
             }
             catch
             {
-                ViewBag.ProductTypes = new SelectList(_context.ProductTypes, "Id", "Name", updatedProduct.ProductTypeId);
-                ViewBag.Shops = new SelectList(_context.Shops, "Id", "Name", updatedProduct.ShopId);
-
                 return View();
             }
         }
@@ -124,11 +107,11 @@ namespace ORMTester.Controllers
         {
             try
             {
-                Product ?product = _context.Products.FirstOrDefault(p => p.Id == id);
+                ProductType? productType = _context.ProductTypes.FirstOrDefault(p => p.Id == id);
                 
-                if (product != null)
+                if (productType != null)
                 {
-                    _context.Remove(product);
+                    _context.Remove(productType);
                     _context.SaveChanges();
                 }
 

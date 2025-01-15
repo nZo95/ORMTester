@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ORMTester.Models
 {
@@ -9,6 +10,14 @@ namespace ORMTester.Models
         [Required]
         public string ?Name { get; set; }
         [Required]
-        public string ?Type { get; set; }
+        public int? ProductTypeId { get; set; }
+
+        [ForeignKey("ProductTypeId")]
+        public ProductType? ProductType { get; set; }
+
+        public int? ShopId { get; set; }
+
+        [ForeignKey("ShopId")]
+        public Shop? Shop { get; set; }
     }
 }

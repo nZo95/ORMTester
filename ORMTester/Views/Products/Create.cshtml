@@ -1,4 +1,6 @@
-﻿@{
+﻿@model ORMTester.Models.Product
+
+@{
     ViewData["Title"] = "Create Product";
 }
 
@@ -8,13 +10,31 @@
     @Html.AntiForgeryToken()
 
     <div class="form-group">
-        <label for="productName">Product Name</label>
-        <input type="text" class="form-control" id="productName" name="ProductName" required />
+        <label asp-for="Name" class="control-label">Product Name</label>
+        <input asp-for="Name" class="form-control" required />
+        <span asp-validation-for="Name" class="text-danger"></span>
     </div>
 
     <div class="form-group">
         <label for="productType">Type</label>
-        <textarea class="form-control" id="productType" name="ProductType" required></textarea>
+        <select class="form-control" id="productType" name="ProductTypeId" required>
+            <option value="">-- Select Type --</option>
+            @foreach (var type in ViewBag.ProductTypes as IEnumerable<SelectListItem>)
+            {
+                <option value="@type.Value">@type.Text</option>
+            }
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label for="shop">Type</label>
+        <select class="form-control" id="shop" name="ShopId">
+            <option value="">-- Select Shop --</option>
+            @foreach (var type in ViewBag.Shops as IEnumerable<SelectListItem>)
+            {
+                <option value="@type.Value">@type.Text</option>
+            }
+        </select>
     </div>
 
     <div class="form-group">

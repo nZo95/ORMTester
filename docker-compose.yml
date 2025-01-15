@@ -44,3 +44,4 @@ networks:
   mynetwork:
     name: mynetwork
     driver: bridge
+    external: true

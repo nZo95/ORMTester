@@ -1,0 +1,37 @@
+﻿@{
+    ViewData["Title"] = "Product Types Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Product Types List</h1>
+</div>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var type in Model)
+            {
+                <tr>
+                    <td>@type.Name</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "ProductTypes", new { id = type.Id })" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="@Url.Action("Delete", "ProductTypes", new { id = type.Id })" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No product types found.</p>
+}
+
+<a href="@Url.Action("Create", "ProductTypes")" class="btn btn-primary">Create New Product Type</a>

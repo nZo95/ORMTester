@@ -1,0 +1,38 @@
+﻿@{
+    ViewData["Title"] = "Shops Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Shops List</h1>
+</div>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var shop in Model)
+            {
+                <tr>
+                    <td>@shop.Name</td>
+                    <td>
+                        <a href="@Url.Action("Details", "Shops", new { id = shop.Id })" class="btn btn-info  btn-sm">Detail</a>
+                        <a href="@Url.Action("Edit", "Shops", new { id = shop.Id })" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="@Url.Action("Delete", "Shops", new { id = shop.Id })" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No shops found.</p>
+}
+
+<a href="@Url.Action("Create", "Shops")" class="btn btn-primary">Create New Shop</a>
