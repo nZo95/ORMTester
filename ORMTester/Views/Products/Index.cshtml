@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Products Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Products List</h1>
+</div>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.Name</td>
+                    <td>@product.Type</td>
+                    <td>
+                        <a href="@Url.Action("Edit", "Products", new { id = product.Id })" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="@Url.Action("Delete", "Products", new { id = product.Id })" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No products found.</p>
+}
+
+<a href="@Url.Action("Create", "Products")" class="btn btn-primary">Create New Product</a>

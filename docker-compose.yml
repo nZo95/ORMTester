@@ -1,0 +1,46 @@
+version: '3.8'
+services:
+  # Service MySQL
+  mysql-container:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: Products
+    ports:
+      - "3306:3306"
+    networks:
+      - mynetwork
+
+  # Service de l'application .NET
+  ormtester:
+    build:
+      context: ./ORMTester
+    container_name: ormTester
+    depends_on:
+      - mysql-container
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=mysql-container;Database=Products;User=root;Password=root;
+    ports:
+      - "5000:80"
+    networks:
+      - mynetwork
+
+  # Service phpMyAdmin
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-container
+    environment:
+      PMA_HOST: mysql-container
+      PMA_PORT: 3306
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql-container
+    networks:
+      - mynetwork
+
+networks:
+  mynetwork:
+    name: mynetwork
+    driver: bridge

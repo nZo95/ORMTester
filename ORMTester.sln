@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORMTester", "ORMTester\ORMTester.csproj", "{37EA18AE-C746-4A8B-9BEF-B15C144B5E32}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{68AB2A49-4E01-4735-8229-6F9E2E042A85}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{37EA18AE-C746-4A8B-9BEF-B15C144B5E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37EA18AE-C746-4A8B-9BEF-B15C144B5E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37EA18AE-C746-4A8B-9BEF-B15C144B5E32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68AB2A49-4E01-4735-8229-6F9E2E042A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68AB2A49-4E01-4735-8229-6F9E2E042A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68AB2A49-4E01-4735-8229-6F9E2E042A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68AB2A49-4E01-4735-8229-6F9E2E042A85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
